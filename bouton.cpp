@@ -4,7 +4,7 @@ Bouton::Bouton(int lig, int col)
 {
     ligne = lig;
     colonne = col;
-    valeur = 2;
+    valeur = 0;
     setCouleursBT();
     setCouleur();
 }
@@ -27,6 +27,9 @@ QString Bouton :: getCouleurText(){
 }
 
 // Methode set
+void Bouton:: setValeur(int valeur2){
+    valeur=valeur2;
+}
 void Bouton :: setLigne(int ligne2){
     ligne = ligne2;
 }
@@ -35,9 +38,9 @@ void Bouton :: setColonne(int colonne2){
 }
 void Bouton :: setCouleursBT(){ // creation des coulers utilisees
     // Couleurs Boutons
-    couleursBoutons << "D0D0D0" << "#90EE90"<<"#20B2AA"<<"#8A2BE2"<<"#EE82EE"<<"#FF1493"<<"#F08080"<<"#D2691E"<<"#F0E68C"<<"#FFD700"<<"#FF8C00"<<"#FF0000";
+    couleursBoutons << "#D0D0D0" << "#90EE90"<<"#20B2AA"<<"#8A2BE2"<<"#EE82EE"<<"#FF1493"<<"#F08080"<<"#D2691E"<<"#F0E68C"<<"#FFD700"<<"#FF8C00"<<"#FF0000";
     // Couleurs Texts
-    couleursTexts << "D0D0D0" << "#008000"<<"#556B2F"<<"#4B0082"<<"#FF00FF"<<"#C71585"<<"#FFC0CB"<<"#F4A460"<<"#FFD700"<<"#FF4500"<<"#FF4500"<<"#FFFAFA";
+    couleursTexts << "#D0D0D0" << "#008000"<<"#556B2F"<<"#4B0082"<<"#FF00FF"<<"#C71585"<<"#FFC0CB"<<"#F4A460"<<"#FFD700"<<"#FF4500"<<"#FF4500"<<"#FFFAFA";
 }
 void Bouton :: setCouleur(){
     switch (this->getValeur()) {

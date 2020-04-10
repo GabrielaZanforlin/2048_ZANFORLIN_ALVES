@@ -25,11 +25,12 @@ public:
 
     // Fonctions pour le mouvement des pieces
 
+
     // GUI: Methods de l'interface graphique --> qml
-    Q_PROPERTY(int x READ positionX NOTIFY signalGrille)                                    // envoye la position x du bouton
+    /*Q_PROPERTY(int x READ positionX NOTIFY signalGrille)                                    // envoye la position x du bouton
     int positionX();
     Q_PROPERTY(int y READ positionY NOTIFY signalGrille)                                    // envoye la position y du bouton
-    int positionY();
+    int positionY();*/
 
     Q_PROPERTY(bool gagneur READ gagnerQML() NOTIFY signalGrille);                          // Dit s'il a gagne
     bool gagnerQML();
@@ -73,6 +74,7 @@ private:
     // Fonctions
     void initialisationGrille();
     void destructeurGrille();
+    void randomBouton();
 
 
 };

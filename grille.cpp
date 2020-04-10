@@ -1,6 +1,9 @@
 #include<iostream>
 #include<QStringList>
 #include <QObject>
+#include<ctime>
+#include<stdlib.h>
+#include<time.h>
 #include "grille.h"
 #include "bouton.h"
 using namespace std;
@@ -17,11 +20,32 @@ Grille::Grille(QObject *parent) :  QObject(parent)
     bouton = new Bouton(1,1);                           // TESTE
     initialisationGrille();
 }
+
 void Grille::initialisationGrille(){
+    cout << __PRETTY_FUNCTION__;
     tableBouton = new Bouton*[dimension*dimension];
     for(int i=0;i<dimension;i++){
         for(int j =0;j<dimension;j++){
             tableBouton[i*dimension +j] = new Bouton(i,j);
+        }
+    }
+    randomBouton();
+}
+
+void Grille :: randomBouton(){
+    cout << __PRETTY_FUNCTION__;
+    srand(time(NULL)*time(NULL));
+    double val = ((double) rand() / (RAND_MAX));
+    int comp=0;
+    while(comp==0){
+        int random_i = rand()%dimension;
+        int random_j = rand()%dimension;
+        if(tableBouton[random_i*dimension + random_j]->getValeur()==0){
+            if(val<0.85)
+                tableBouton[random_i*dimension + random_j]->setValeur(2);
+            else
+                tableBouton[random_i*dimension + random_j]->setValeur(4);
+            comp++;
         }
     }
 }
@@ -45,12 +69,15 @@ void Grille::destructeurGrille(){
 bool Grille:: gagnerQML(){
     return gagneur;
 }
+
 bool Grille:: perduQML(){
     return perdu;
 }
+
 int Grille :: scoreQML(){
     return score;
 }
+
 int Grille :: bestscoreQML(){
     return bestscore;
 }
