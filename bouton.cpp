@@ -29,6 +29,7 @@ QString Bouton :: getCouleurText(){
 // Methode set
 void Bouton:: setValeur(int valeur2){
     valeur=valeur2;
+    setCouleur();
 }
 void Bouton :: setLigne(int ligne2){
     ligne = ligne2;
@@ -43,7 +44,7 @@ void Bouton :: setCouleursBT(){ // creation des coulers utilisees
     couleursTexts << "#D0D0D0" << "#008000"<<"#556B2F"<<"#4B0082"<<"#FF00FF"<<"#C71585"<<"#FFC0CB"<<"#F4A460"<<"#FFD700"<<"#FF4500"<<"#FF4500"<<"#FFFAFA";
 }
 void Bouton :: setCouleur(){
-    switch (this->getValeur()) {
+    switch (valeur) {
         case 0:
             couleur_Bouton=couleursBoutons.at(0);
             couleur_Text=couleursTexts.at(0);

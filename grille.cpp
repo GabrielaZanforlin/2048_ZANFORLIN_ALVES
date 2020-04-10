@@ -17,12 +17,20 @@ Grille::Grille(QObject *parent) :  QObject(parent)
     finJeu = false;
     gagneur = false;
     perdu = false;
-    bouton = new Bouton(1,1);                           // TESTE
+    QMLCompteurCouleurBoutonTexte = 0;
+    QMLCompteurCouleurBouton = 0;
+    QMLCompteuBoutonTexte = 0;
+    QMLBoutonX = 0;
+    QMLBoutonY = 0;
     initialisationGrille();
+    signalGrille();
+}
+
+int Grille::getDimension(){
+    return dimension;
 }
 
 void Grille::initialisationGrille(){
-    cout << __PRETTY_FUNCTION__;
     tableBouton = new Bouton*[dimension*dimension];
     for(int i=0;i<dimension;i++){
         for(int j =0;j<dimension;j++){
@@ -33,7 +41,6 @@ void Grille::initialisationGrille(){
 }
 
 void Grille :: randomBouton(){
-    cout << __PRETTY_FUNCTION__;
     srand(time(NULL)*time(NULL));
     double val = ((double) rand() / (RAND_MAX));
     int comp=0;
@@ -41,28 +48,50 @@ void Grille :: randomBouton(){
         int random_i = rand()%dimension;
         int random_j = rand()%dimension;
         if(tableBouton[random_i*dimension + random_j]->getValeur()==0){
-            if(val<0.85)
+            if(val<0.85){
                 tableBouton[random_i*dimension + random_j]->setValeur(2);
-            else
+            }else
+            {
                 tableBouton[random_i*dimension + random_j]->setValeur(4);
+            }
             comp++;
         }
     }
+    signalGrille();
 }
 
-// Destructeur
-Grille :: ~Grille(){
-    destructeurGrille();
-}
-void Grille::destructeurGrille(){
-    if(tableBouton != NULL){
-        for(int i=0;i<dimension*dimension;i++){
-            delete [] tableBouton[i];
-            //delete tableBouton[i];
+// Mouvement
+void Grille::UP(){
+    for(int i=0;i<dimension;i++){
+        for(int j=0;j<dimension;j++){
+            if((i*dimension+j)>(dimension-1) && tableBouton[i*dimension+j]->getValeur()!=0){
+
+                if(tableBouton[(i*dimension+j)%dimension]->getValeur()==0){
+                    tableBouton[(i*dimension+j)%dimension]->setValeur(tableBouton[i*dimension+j]->getValeur());
+                    tableBouton[i*dimension+j]->setValeur(0);
+                    signalGrille();
+                }
+
+                /*if(tableBouton[dimension*(i-1)+j]->getValeur()==0){
+                    tableBouton[dimension*(i-1)+j]->setValeur(tableBouton[i*dimension+j]->getValeur());
+                    tableBouton[i*dimension+j]->setValeur(0);
+                    signalGrille();
+
+                }*/
+                /*if(tableBouton[dimension*(i-1)+j]->getValeur()==tableBouton[i*dimension+j]->getValeur()){
+                    //tableBouton[dimension*(i-1)+j]->setValeur(2*tableBouton[i*dimension+j]->getValeur());
+                    //tableBouton[i*dimension+j]->setValeur(0);
+                    signalGrille();
+
+                } else if(tableBouton[dimension*(i-2)+j]->getValeur()==tableBouton[i*dimension+j]->getValeur()){
+
+                } else if(tableBouton[dimension*(i-3)+j]->getValeur()==tableBouton[i*dimension+j]->getValeur()){
+
+                }*/
+
+            }
         }
-        delete [] tableBouton;
     }
-    tableBouton=NULL;
 }
 
 // Get methodes --> utilisés dans le qml
@@ -88,25 +117,67 @@ void Grille :: setScore(int scoreModifie){
 }
 
 //Sending data to GUI
+int Grille::positionX(){
+    int x,colonne;
+    if(QMLBoutonX==dimension*dimension)
+        QMLBoutonX=0;
+    colonne = tableBouton[QMLBoutonX]->getColonne();
+    x=(colonne*(75+10))+10;
+    QMLBoutonX++;
+    return x;
+}
+int Grille::positionY(){
+    int y,ligne;
+    if(QMLBoutonY==dimension*dimension)
+        QMLBoutonY=0;
+    ligne = tableBouton[QMLBoutonY]->getLigne();
+    y=(ligne*(75+10))+10;
+    QMLBoutonY++;
+    return y;
+}
 QString Grille::couleurBoutonGUI()
 {
     QString couleurBouton;
-    couleurBouton = bouton->getCouleurBouton();
+    if(QMLCompteurCouleurBouton==dimension*dimension)
+        QMLCompteurCouleurBouton=0;
+    couleurBouton = tableBouton[QMLCompteurCouleurBouton]->getCouleurBouton();
+    QMLCompteurCouleurBouton++;
     return couleurBouton;
 }
 
 QString Grille::couleurBoutonTexteGUI()
 {
     QString couleurBoutonTexte;
-    couleurBoutonTexte = bouton->getCouleurText();
+    if(QMLCompteurCouleurBoutonTexte==dimension*dimension)
+        QMLCompteurCouleurBoutonTexte=0;
+    couleurBoutonTexte = tableBouton[QMLCompteurCouleurBoutonTexte]->getCouleurText();
+    QMLCompteurCouleurBoutonTexte++;
     return couleurBoutonTexte;
 }
 
 QString Grille::boutonTexteGUI()
 {
     int boutonTexte;
-    boutonTexte = bouton->getValeur();
+    if(QMLCompteuBoutonTexte==dimension*dimension)
+        QMLCompteuBoutonTexte=0;
+    boutonTexte = tableBouton[QMLCompteuBoutonTexte]->getValeur();
+    QMLCompteuBoutonTexte++;
     return QString::number(boutonTexte);
 }
 
+// Destructeur
+Grille :: ~Grille(){
+    destructeurGrille();
+}
+
+void Grille::destructeurGrille(){
+    if(tableBouton != NULL){
+        for(int i=0;i<dimension*dimension;i++){
+            delete [] tableBouton[i];
+            //delete tableBouton[i];
+        }
+        delete [] tableBouton;
+    }
+    tableBouton=NULL;
+}
 

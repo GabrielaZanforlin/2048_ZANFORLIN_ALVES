@@ -24,13 +24,22 @@ public:
     void setScore(int scoreModifie);
 
     // Fonctions pour le mouvement des pieces
+    Q_INVOKABLE void UP();
+    /*Q_INVOKABLE void Down();
+    Q_INVOKABLE void Left();
+    Q_INVOKABLE void Right();*/
 
 
     // GUI: Methods de l'interface graphique --> qml
-    /*Q_PROPERTY(int x READ positionX NOTIFY signalGrille)                                    // envoye la position x du bouton
+    // Proprietes du bouton
+    Q_PROPERTY(int dimensionGUI READ getDimension NOTIFY signalGrille)             // Prendre la couleur du bouton
+    int getDimension();
+
+    // Position du bouton
+    Q_PROPERTY(int x READ positionX NOTIFY signalGrille)                                    // envoye la position x du bouton
     int positionX();
     Q_PROPERTY(int y READ positionY NOTIFY signalGrille)                                    // envoye la position y du bouton
-    int positionY();*/
+    int positionY();
 
     Q_PROPERTY(bool gagneur READ gagnerQML() NOTIFY signalGrille);                          // Dit s'il a gagne
     bool gagnerQML();
@@ -42,6 +51,7 @@ public:
     Q_PROPERTY(int bestscore READ bestscoreQML NOTIFY signalGrille);
     int bestscoreQML();
 
+    // Proprietes du bouton
     Q_PROPERTY(QString couleurBouton READ couleurBoutonGUI NOTIFY signalGrille)             // Prendre la couleur du bouton
     QString couleurBoutonGUI();
     Q_PROPERTY(QString couleurBoutonTexte READ couleurBoutonTexteGUI NOTIFY signalGrille)   // Prendre la couleur du text du bouton
@@ -52,8 +62,6 @@ public:
 signals:                
     void signalGrille();                                                                    // Le signal résponsable pour changer le qml
 private:
-    int x;
-    int y;
     int score;                                                                              // Score du jeu
     int bestscore;                                                                          // Best score du jeu
     int dimension;
@@ -66,8 +74,9 @@ private:
     bool perdu;
 
     // Informations utilises dans qml
-    int QMLBlockIndexColor;
-    int QMLBlockIndexTextColor;
+    int QMLCompteurCouleurBoutonTexte;
+    int QMLCompteurCouleurBouton;
+    int QMLCompteuBoutonTexte;
     int QMLBoutonX;
     int QMLBoutonY;
 
@@ -75,6 +84,7 @@ private:
     void initialisationGrille();
     void destructeurGrille();
     void randomBouton();
+    void changerValeur();
 
 
 };
