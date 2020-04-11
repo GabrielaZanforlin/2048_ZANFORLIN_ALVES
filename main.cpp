@@ -10,9 +10,10 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    Grille aGrille;
+
     QQmlApplicationEngine engine;
 
-    Grille aGrille;
     engine.rootContext()->setContextProperty("tableau", &aGrille);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

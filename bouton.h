@@ -15,6 +15,7 @@ public:
     int getLigne();
     int getColonne();
     int getValeur();
+    bool getFusion();
     QString getCouleurBouton();
     QString getCouleurText();
 
@@ -22,12 +23,14 @@ public:
     void setLigne(int ligne2);
     void setColonne(int colonne2);
     void setValeur(int valeur2);
+    void setFusion(bool fusion2);
     void setCouleursBT();               // on initialise les couleurs utilises dans les boutons et dans les texts
     void setCouleur();                  // dans ce methode, on change les deux couleurs
 private:
     int ligne;
     int colonne;
     int valeur;
+    bool fusion;
 
     QString couleur_Bouton;
     QString couleur_Text;

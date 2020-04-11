@@ -17,22 +17,24 @@ public:
     Grille(QObject *parent = 0);                                                            // Constructeur
     ~Grille();                                                                              // Déstructeur
 
-    // Functions
-    //void creationBoutons();                                                                 // Creations des boutons
+    Q_INVOKABLE void redemarrerGrille();
+    Q_INVOKABLE void revenir();
 
     // Set fonctions
     void setScore(int scoreModifie);
+    void setBestScore(int bestScoreModifie);
+    void setRound(int round2);
 
     // Fonctions pour le mouvement des pieces
     Q_INVOKABLE void UP();
-    /*Q_INVOKABLE void Down();
+    Q_INVOKABLE void Down();
     Q_INVOKABLE void Left();
-    Q_INVOKABLE void Right();*/
+    Q_INVOKABLE void Right();
 
 
     // GUI: Methods de l'interface graphique --> qml
     // Proprietes du bouton
-    Q_PROPERTY(int dimensionGUI READ getDimension NOTIFY signalGrille)             // Prendre la couleur du bouton
+    Q_PROPERTY(int dimensionGUI READ getDimension NOTIFY signalGrille)                      // Prendre la dimension de la grille du jeu
     int getDimension();
 
     // Position du bouton
@@ -43,7 +45,7 @@ public:
 
     Q_PROPERTY(bool gagneur READ gagnerQML() NOTIFY signalGrille);                          // Dit s'il a gagne
     bool gagnerQML();
-    Q_PROPERTY(bool perdu READ perduQML() NOTIFY signalGrille);                             // Dit s'il a perdu
+    Q_PROPERTY(bool perdeur READ perduQML() NOTIFY signalGrille);                           // Dit s'il a perdu
     bool perduQML();
 
     Q_PROPERTY(int score READ scoreQML NOTIFY signalGrille);
@@ -64,14 +66,15 @@ signals:
 private:
     int score;                                                                              // Score du jeu
     int bestscore;                                                                          // Best score du jeu
+    int rounds;
     int dimension;
 
     Bouton **tableBouton;                                                                   // Création de la matrice de boutons
-    Bouton *bouton;                                                                         // Teste
+    int ***tableauMemoire;
 
-    bool finJeu;
+    //bool finJeu;
     bool gagneur;
-    bool perdu;
+    bool perdeur;
 
     // Informations utilises dans qml
     int QMLCompteurCouleurBoutonTexte;
@@ -81,10 +84,14 @@ private:
     int QMLBoutonY;
 
     // Fonctions
+    void constructeurGrille();
     void initialisationGrille();
     void destructeurGrille();
     void randomBouton();
-    void changerValeur();
+    void reinitialiserFusion();
+    void sauvegarder();                                                                     // Faire la gestion de memoire des mouvements
+    bool checkGagneur();
+    bool checkPerdeur();
 
 
 };
