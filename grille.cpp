@@ -70,7 +70,7 @@ void Grille :: randomBouton(){
                     int random_j = rand()%dimension;
                     if(tableBouton[random_i*dimension + random_j]->getValeur()==0){
                         if(val<0.85){
-                            tableBouton[random_i*dimension + random_j]->setValeur(1024);
+                            tableBouton[random_i*dimension + random_j]->setValeur(2);
                             score +=2;
                         }else
                         {

@@ -21,7 +21,7 @@ Window {
         id: fenetreJeu
         width: (85*dimension + 160)
         height: (85*dimension + 160)
-        color: "#faf9f0"
+        color: "#D2D1D1"
         property alias rectangleBoutons: rectangleBoutons
 
         Rectangle {
@@ -32,13 +32,13 @@ Window {
             anchors.topMargin: 20
             width: 120
             height: 60
-            color: "#ccc2b3"
+            color: "#959494"
             radius: 5
 
             Text {
                 id: titreTexte
                 text: qsTr("2048")
-                color: "#474645"
+                color: "#FEFDFD"
                 font.bold: true
                 anchors.top: parent.top
                 horizontalAlignment: Text.AlignHCenter
@@ -56,13 +56,13 @@ Window {
             anchors.topMargin: 20
             width: 80
             height: 40
-            color: "#ccc2b3"
+            color: "#959494"
             radius: 5
 
             Text {
                 id: scoreJeuText
                 text: qsTr("SCORE")
-                color: "#ffffff"
+                color: "#FEFDFD"
                 anchors.top: parent.top
                 anchors.topMargin: 5
                 horizontalAlignment: Text.AlignHCenter
@@ -74,7 +74,7 @@ Window {
                 id: scoreValeur
                 text: qsTr(tableau.score.toString())
                 font.bold: true
-                color:  "#ffffff"
+                color:  "#FEFDFD"
                 anchors.top: parent.top
                 anchors.topMargin: 18
                 horizontalAlignment: Text.AlignHCenter
@@ -90,13 +90,13 @@ Window {
             anchors.topMargin: 20
             width: 80
             height: 40
-            color: "#ccc2b3"
+            color: "#959494"
             radius: 5
 
             Text {
                 id: bestScoreJeuTexte
                 text: qsTr("BEST SCORE")
-                color: "#ffffff"
+                color: "#FEFDFD"
                 anchors.top: parent.top
                 anchors.topMargin: 5
                 horizontalAlignment: Text.AlignHCenter
@@ -108,7 +108,7 @@ Window {
                 id: bestScoreJeuValeur
                 text: qsTr(tableau.bestscore.toString())
                 font.bold: true
-                color:  "#ffffff"
+                color:  "#FEFDFD"
                 anchors.top: parent.top
                 anchors.topMargin: 18
                 horizontalAlignment: Text.AlignHCenter
@@ -126,13 +126,14 @@ Window {
             anchors.left: rectangleBoutons.left
             anchors.leftMargin: (largeurFenetre - 385)/2
             //anchors.leftMargin: 5
-            color:"#8f7a66"
+            color:"#696866"
             radius: 5
 
             Text {
                 id: redemarrerTexte
                 color: "#ffffff"
                 text: qsTr("Rédemarrer")
+                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -158,7 +159,7 @@ Window {
             anchors.bottomMargin: 10
             anchors.left: redemarrerBouton.right
             anchors.leftMargin: 5
-            color: "#8f7a66"
+            color: "#696866"
             radius: 5
             visible: true
 
@@ -166,6 +167,7 @@ Window {
                 id: revenirTexte
                 color: "#ffffff"
                 text: qsTr("Revenir")
+                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -190,13 +192,14 @@ Window {
             anchors.bottomMargin: 10
             width: 40
             height: 40
-            color: "#8f7a66"
+            color: "#696866"
             radius: 5
 
             Text {
                 id: texteDimensio4
                 color: "#ffffff"
                 text: qsTr("4x4")
+                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -221,13 +224,14 @@ Window {
             anchors.bottomMargin: 10
             width: 40
             height: 40
-            color: "#8f7a66"
+            color: "#696866"
             radius: 5
 
             Text {
                 id: texteDimensio5
                 color: "#ffffff"
                 text: qsTr("5x5")
+                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -251,13 +255,14 @@ Window {
             anchors.bottomMargin: 10
             width: 40
             height: 40
-            color: "#8f7a66"
+            color: "#696866"
             radius: 5
 
             Text {
                 id: texteDimension6
                 color: "#ffffff"
                 text: qsTr("6x6")
+                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -279,7 +284,7 @@ Window {
             y: 80
             width: (85*dimension + 10)
             height: (85*dimension + 10)
-            color:  "#baae9d"
+            color:  "#54524F"
             radius: 15
             anchors.left: parent.left
             anchors.leftMargin: 20
@@ -401,7 +406,7 @@ Window {
             anchors.leftMargin: (largeurFenetre - 250)/2
             anchors.top: parent.top
             anchors.topMargin: 300
-            anchors.horizontalCenter: gagneur.horizontalCenter
+            //anchors.horizontalCenter: gagneur.horizontalCenter
             anchors.bottom: texteGagneur.AlignBottom
             anchors.bottomMargin: 10
             width: 120

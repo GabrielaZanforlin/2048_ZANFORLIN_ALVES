@@ -46,9 +46,9 @@ void Bouton :: setColonne(int colonne2){
 }
 void Bouton :: setCouleursBT(){ // creation des coulers utilisees
     // Couleurs Boutons
-    couleursBoutons << "#D0D0D0" << "#90EE90"<<"#20B2AA"<<"#8A2BE2"<<"#EE82EE"<<"#FF1493"<<"#F08080"<<"#D2691E"<<"#F0E68C"<<"#FFD700"<<"#FF8C00"<<"#FF0000";
+    couleursBoutons << "#8C8C8C" << "#90EE90"<<"#20B2AA"<<"#8A2BE2"<<"#EE82EE"<<"#FF1493"<<"#F08080"<<"#D2691E"<<"#F0E68C"<<"#FFD700"<<"#FF8C00"<<"#FF0000";
     // Couleurs Texts
-    couleursTexts << "#D0D0D0" << "#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645";
+    couleursTexts << "#8C8C8C" << "#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645"<<"#474645";
 }
 void Bouton :: setCouleur(){
     switch (valeur) {
