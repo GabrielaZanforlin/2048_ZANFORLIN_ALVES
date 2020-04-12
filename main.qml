@@ -26,9 +26,9 @@ Window {
 
         Rectangle {
             id: titre
-            //anchors.left: title2048.right
+            anchors.left: parent.left
             anchors.leftMargin: 20
-            //anchors.top: parent.top
+            anchors.top: parent.top
             anchors.topMargin: 20
             width: 120
             height: 60
@@ -39,8 +39,8 @@ Window {
                 id: titreTexte
                 text: qsTr("2048")
                 color: "#474645"
+                font.bold: true
                 anchors.top: parent.top
-                //anchors.topMargin: 5
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.fill: parent
@@ -124,7 +124,8 @@ Window {
             anchors.bottom: rectangleBoutons.top
             anchors.bottomMargin: 10
             anchors.left: rectangleBoutons.left
-            anchors.leftMargin: 5
+            anchors.leftMargin: (largeurFenetre - 385)/2
+            //anchors.leftMargin: 5
             color:"#8f7a66"
             radius: 5
 
@@ -182,6 +183,98 @@ Window {
         }
 
         Rectangle {
+            id: dimension4
+            anchors.left: revenirBouton.right
+            anchors.leftMargin: 5
+            anchors.bottom: rectangleBoutons.top
+            anchors.bottomMargin: 10
+            width: 40
+            height: 40
+            color: "#8f7a66"
+            radius: 5
+
+            Text {
+                id: texteDimensio4
+                color: "#ffffff"
+                text: qsTr("4x4")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 15
+            }
+
+            MouseArea {
+                id: boutonDimensio4
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                visible: boutons
+                onClicked: tableau.setDimension(4)
+            }
+        }
+
+        Rectangle {
+            id: dimension5
+            anchors.left:  dimension4.right
+            anchors.leftMargin: 5
+            anchors.bottom: rectangleBoutons.top
+            anchors.bottomMargin: 10
+            width: 40
+            height: 40
+            color: "#8f7a66"
+            radius: 5
+
+            Text {
+                id: texteDimensio5
+                color: "#ffffff"
+                text: qsTr("5x5")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 15
+            }
+
+            MouseArea {
+                id: boutonDimension5
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                visible: boutons
+                onClicked: tableau.setDimension(5)
+            }
+        }
+        Rectangle {
+            id: dimension6
+            anchors.left:  dimension5.right
+            anchors.leftMargin: 5
+            anchors.bottom: rectangleBoutons.top
+            anchors.bottomMargin: 10
+            width: 40
+            height: 40
+            color: "#8f7a66"
+            radius: 5
+
+            Text {
+                id: texteDimension6
+                color: "#ffffff"
+                text: qsTr("6x6")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 15
+            }
+
+            MouseArea {
+                id: boutonDimension6
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                visible: boutons
+                onClicked: tableau.setDimension(6)
+            }
+        }
+
+        Rectangle {
             id: rectangleBoutons
             y: 80
             width: (85*dimension + 10)
@@ -201,7 +294,7 @@ Window {
                     width: 75
                     height: 75
                     color: tableau.couleurBouton
-                    //Behavior on color { PropertyAnimation { duration: 200}}
+                    //Behavior on color { PropertyAnimation { duration: 100}}
                     radius: 5
                     z: 1
                     focus: true
@@ -278,17 +371,18 @@ Window {
         visible: false
 
         Rectangle{
+            id:texteGagneur
             anchors.fill: parent
-            color: "#faf9f0"
+            color: "#76E181"
 
             Text {
                 id: gagneur
-                x: -7
+                x: 0
                 y: 6
                 width: 173
                 height: 25
-                color: "#000000"
-                text: qsTr("Felicitations ! Vous avez gagné !")
+                color: "#FFFDFD"
+                text: qsTr("Vous avez gagné :)")
                 anchors.horizontalCenterOffset: 1
                 font.bold: true
                 font.pixelSize: 30
@@ -300,6 +394,85 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
+
+        Rectangle {
+            id: redemarrerGagneur
+            anchors.left: parent.left
+            anchors.leftMargin: (largeurFenetre - 250)/2
+            anchors.top: parent.top
+            anchors.topMargin: 300
+            anchors.horizontalCenter: gagneur.horizontalCenter
+            anchors.bottom: texteGagneur.AlignBottom
+            anchors.bottomMargin: 10
+            width: 120
+            height: 60
+            color: "#FFFDFD"
+            radius: 5
+
+            Text {
+                id: redemarrerGagneurTexte
+                color: "#76E181"
+                text: qsTr("Rédemarrer")
+                font.bold: true
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 15
+            }
+
+            MouseArea {
+                id: redemarrerGagneurBouton
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked:
+                {
+                    boutons = true
+                    fenetreGagneur.visible = false
+                    fenetreJeu.visible = true
+                    tableau.redemarrerGrille()
+                }
+            }
+        }
+
+        Rectangle {
+            id: continuerJeu
+            anchors.left: redemarrerGagneur.right
+            anchors.leftMargin: 10
+            anchors.top: parent.top
+            anchors.topMargin: 300
+            anchors.bottom: gagneur.Bottom
+            anchors.bottomMargin: 10
+            width: 120
+            height: 60
+            color: "#FFFDFD"
+            radius: 5
+
+            Text {
+                id: continuerJeuTexte
+                color: "#76E181"
+                text: qsTr("Continuer")
+                font.bold: true
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 15
+            }
+
+            MouseArea {
+                id: continuerJeuBouton
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked:
+                {
+                    tableau.setContinuerJeu()
+                    boutons = true
+                    fenetreGagneur.visible = false
+                    fenetreJeu.visible = true
+                }
+            }
+        }
     }
 
     Item {
@@ -309,7 +482,8 @@ Window {
 
         Rectangle{
             anchors.fill: parent
-            color: "#faf9f0"
+            color: "#FC5B5B"
+            id: textePerdeur
 
             Text {
                 id: perdeur
@@ -317,7 +491,7 @@ Window {
                 y: 6
                 width: 173
                 height: 25
-                color: "#000000"
+                color: "#FFFDFD"
                 text: qsTr("Vous avez perdu :(")
                 anchors.horizontalCenterOffset: 1
                 font.bold: true
@@ -328,6 +502,44 @@ Window {
                 verticalAlignment: Text.AlignVCenter
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                id: redemarrerPerdu
+                anchors.top: parent.top
+                anchors.topMargin: 300
+                anchors.horizontalCenter: perdeur.horizontalCenter
+                anchors.bottom: textePerdeur.AlignBottom
+                anchors.bottomMargin: 10
+                width: 180
+                height: 60
+                color: "#FFFDFD"
+                radius: 5
+
+                Text {
+                    id: redemarrerPerduTexte
+                    color: "#FC5B5B"
+                    text: qsTr("Rédemarrer")
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 15
+                }
+
+                MouseArea {
+                    id: remarrerPerdeurBouton
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked:
+                    {
+                        boutons = true
+                        fenetrePerdeur.visible = false
+                        fenetreJeu.visible = true
+                        tableau.redemarrerGrille()
+                    }
+                }
             }
         }
     }

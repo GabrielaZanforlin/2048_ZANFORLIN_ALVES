@@ -1,12 +1,12 @@
 #ifndef GRILLE_H
 #define GRILLE_H
 
-#include <QObject>                                                                          // Héritage de QObjet
-#include<time.h>                                                                            // Initialisation de la fonction radom
-#include<stdlib.h>                                                                          // Prendre la fonction random
+#include <QObject>                               // Héritage de QObjet
+#include<time.h>                                 // Initialisation de la fonction radom
+#include<stdlib.h>                               // Prendre la fonction random
 #include<QStringList>
 #include<vector>
-#include"bouton.h"                                                                          // Créations des boutons de la grille
+#include"bouton.h"                               // Créations des boutons de la grille
 
 
 
@@ -14,23 +14,19 @@ class Grille : public QObject
 {
     Q_OBJECT
 public:
-    Grille(QObject *parent = 0);                                                            // Constructeur
-    ~Grille();                                                                              // Déstructeur
+    Grille(QObject *parent = 0);                            // Constructeur
+    ~Grille();                                              // Déstructeur
 
-    Q_INVOKABLE void redemarrerGrille();
-    Q_INVOKABLE void revenir();
-
-    // Set fonctions
-    void setScore(int scoreModifie);
-    void setBestScore(int bestScoreModifie);
-    void setRound(int round2);
+    Q_INVOKABLE void redemarrerGrille();                    // Rédemarrer le jeu
+    Q_INVOKABLE void revenir();                             // Revenir un round
+    Q_INVOKABLE void setDimension(int dimensionModifie);
+    Q_INVOKABLE void setContinuerJeu();
 
     // Fonctions pour le mouvement des pieces
     Q_INVOKABLE void UP();
     Q_INVOKABLE void Down();
     Q_INVOKABLE void Left();
     Q_INVOKABLE void Right();
-
 
     // GUI: Methods de l'interface graphique --> qml
     // Proprietes du bouton
@@ -43,11 +39,13 @@ public:
     Q_PROPERTY(int y READ positionY NOTIFY signalGrille)                                    // envoye la position y du bouton
     int positionY();
 
+    // Status du jeu
     Q_PROPERTY(bool gagneur READ gagnerQML() NOTIFY signalGrille);                          // Dit s'il a gagne
     bool gagnerQML();
     Q_PROPERTY(bool perdeur READ perduQML() NOTIFY signalGrille);                           // Dit s'il a perdu
     bool perduQML();
 
+    // Score et Best score
     Q_PROPERTY(int score READ scoreQML NOTIFY signalGrille);
     int scoreQML();
     Q_PROPERTY(int bestscore READ bestscoreQML NOTIFY signalGrille);
@@ -62,19 +60,21 @@ public:
     QString boutonTexteGUI();
 
 signals:                
-    void signalGrille();                                                                    // Le signal résponsable pour changer le qml
+    void signalGrille();                    // Le signal résponsable pour changer le qml
 private:
-    int score;                                                                              // Score du jeu
-    int bestscore;                                                                          // Best score du jeu
-    int rounds;
+    int score;                              // Score du jeu
+    int bestscore;                          // Best score du jeu
+    int rounds;                             // Numero de rounds
     int dimension;
 
-    Bouton **tableBouton;                                                                   // Création de la matrice de boutons
+    Bouton **tableBouton;                   // Création de la matrice de boutons
     int ***tableauMemoire;
 
     //bool finJeu;
     bool gagneur;
     bool perdeur;
+
+    bool continuerJeu;
 
     // Informations utilises dans qml
     int QMLCompteurCouleurBoutonTexte;
@@ -89,7 +89,7 @@ private:
     void destructeurGrille();
     void randomBouton();
     void reinitialiserFusion();
-    void sauvegarder();                                                                     // Faire la gestion de memoire des mouvements
+    void sauvegarder();                     // Faire la gestion de memoire des mouvements
     bool checkGagneur();
     bool checkPerdeur();
 

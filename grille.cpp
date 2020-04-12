@@ -11,12 +11,14 @@ using namespace std;
 // Constructeur
 Grille::Grille(QObject *parent) :  QObject(parent)
 {
+    dimension = 4;                                       // Dimension défaut du jeu
     constructeurGrille();
 }
 void Grille::constructeurGrille(){
     score = 0;
     rounds = 1;
-    dimension = 4;                                      // le taille du tableau du jeu
+    continuerJeu = false;
+    //dimension = 4;                                      // le taille du tableau du jeu
     //finJeu = false;
     gagneur = false;
     perdeur = false;
@@ -68,7 +70,7 @@ void Grille :: randomBouton(){
                     int random_j = rand()%dimension;
                     if(tableBouton[random_i*dimension + random_j]->getValeur()==0){
                         if(val<0.85){
-                            tableBouton[random_i*dimension + random_j]->setValeur(2);
+                            tableBouton[random_i*dimension + random_j]->setValeur(1024);
                             score +=2;
                         }else
                         {
@@ -80,7 +82,7 @@ void Grille :: randomBouton(){
                 }
                 contientZero = true;
                 if(bestscore<score)
-                    setBestScore(score);
+                    bestscore=score;
                 signalGrille();
                 break;
             }
@@ -260,7 +262,7 @@ void Grille::sauvegarder(){
     }
     // Check best Score
     if(sommeScoreRound>bestscore){
-        setBestScore(sommeScoreRound);
+        bestscore=sommeScoreRound;
     }
     // Supprimer le tableu de memoire d'avant
     for(int i=0;i<rounds;i++){
@@ -285,7 +287,7 @@ void Grille::sauvegarder(){
 bool Grille::checkGagneur(){
     for(int i = 0; i < dimension; i++){
         for(int j = 0; j < dimension; j++){
-            if(tableBouton[i*dimension + j]->getValeur()==2048)
+            if(continuerJeu==false && tableBouton[i*dimension + j]->getValeur()==2048)
                 return true;
         }
     }
@@ -313,7 +315,10 @@ bool Grille::checkPerdeur(){
 bool Grille:: gagnerQML(){
     return gagneur;
 }
-
+void Grille:: setContinuerJeu(){
+    continuerJeu = true;
+    gagneur=false;
+}
 bool Grille:: perduQML(){
     return perdeur;
 }
@@ -325,18 +330,13 @@ int Grille :: scoreQML(){
 int Grille :: bestscoreQML(){
     return bestscore;
 }
-
-// Set methodes
-void Grille :: setScore(int scoreModifie){
-    score = scoreModifie;
+void Grille::setDimension(int dimensionModifie){
+    if(dimensionModifie>2){
+        destructeurGrille();
+        dimension=dimensionModifie;
+        constructeurGrille();
+    }
 }
-void Grille::setBestScore(int bestScoreModifie){
-    bestscore=bestScoreModifie;
-}
-void Grille:: setRound(int round2){
-    rounds=round2;
-}
-
 //Sending data to GUI
 int Grille::positionX(){
     int x,colonne;
@@ -397,9 +397,9 @@ void Grille::revenir(){
                 sommeScore +=tableBouton[i*dimension+j]->getValeur();
             }
         }
-        setScore(sommeScore);
+        score=sommeScore;
         if(sommeScore>bestscore){
-            setBestScore(sommeScore);
+            bestscore=sommeScore;
         }
         signalGrille();
     }
