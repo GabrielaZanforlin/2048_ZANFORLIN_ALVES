@@ -44,6 +44,7 @@ void Bouton :: setLigne(int ligne2){
 void Bouton :: setColonne(int colonne2){
     colonne=colonne2;
 }
+
 void Bouton :: setCouleursBT(){ // creation des coulers utilisees
     // Couleurs Boutons
     couleursBoutons << "#8C8C8C" << "#90EE90"<<"#20B2AA"<<"#8A2BE2"<<"#EE82EE"<<"#FF1493"<<"#F08080"<<"#D2691E"<<"#F0E68C"<<"#FFD700"<<"#FF8C00"<<"#FF0000";

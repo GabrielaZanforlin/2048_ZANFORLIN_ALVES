@@ -65,9 +65,13 @@ public:
     QString couleurBoutonTexteGUI();
     Q_PROPERTY(QString boutonTexte READ boutonTexteGUI NOTIFY signalGrille)                 // Prendre le text du bouton
     QString boutonTexteGUI();
+    Q_PROPERTY(QString dimensionQML READ text WRITE setText NOTIFY signalGrille);
+    QString text();
+    void setText(const QString &text);
 
 signals:                
     void signalGrille();                    // Le signal résponsable pour changer le qml
+    //void dimensionChange(const QString &dimensionQML);
 private:
     int score;                              // Score du jeu
     int bestscore;                          // Best score du jeu
@@ -77,9 +81,9 @@ private:
 
     fstream historique;      // archive pour sauvegarder le progres
 
-
     Bouton **tableBouton;                   // Création de la matrice de boutons
     int ***tableauMemoire;
+    QString dimensionQML;
 
     bool gagneur;
     bool perdeur;
@@ -104,8 +108,6 @@ private:
     bool checkGagneur();
     bool checkPerdeur();
     void effacerHistorique();
-
-
 };
 
 #endif // GRILLE_H

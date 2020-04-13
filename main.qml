@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQuick.Controls 2.14
 
 Window {
     property int dimension: tableau.dimensionGUI
@@ -98,10 +99,10 @@ Window {
             anchors.left: scoreJeu.right
             anchors.leftMargin: 20
             anchors.top: parent.top
-            anchors.topMargin: 20
+            anchors.topMargin: 7
             width: 120
-            height: 60
-            color: "#959494"
+            height: 85
+            color: "#696866"
             radius: 5
 
             Text {
@@ -160,7 +161,7 @@ Window {
             anchors.topMargin: 5 //20
             width: 80
             height: 40
-            color: "#DB7093"//"#959494"
+            color: "#DB7093"
             radius: 5
 
             Text {
@@ -251,96 +252,52 @@ Window {
             }
         }
 
-        Rectangle {
-            id: dimension4
-            anchors.left: revenirBouton.right
-            anchors.leftMargin: 5
-            anchors.bottom: rectangleBoutons.top
-            anchors.bottomMargin: 10
-            width: 40
-            height: 40
-            color: "#696866"
-            radius: 5
-
-            Text {
-                id: texteDimensio4
-                color: "#ffffff"
-                text: qsTr("4x4")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 15
-            }
-
-            MouseArea {
-                id: boutonDimensio4
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                visible: boutons
-                onClicked: tableau.setDimension(4)
-            }
-        }
-
-        Rectangle {
-            id: dimension5
-            anchors.left:  dimension4.right
-            anchors.leftMargin: 5
-            anchors.bottom: rectangleBoutons.top
-            anchors.bottomMargin: 10
-            width: 40
-            height: 40
-            color: "#696866"
-            radius: 5
-
-            Text {
-                id: texteDimensio5
-                color: "#ffffff"
-                text: qsTr("5x5")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 15
-            }
-
-            MouseArea {
-                id: boutonDimension5
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                visible: boutons
-                onClicked: tableau.setDimension(5)
-            }
-        }
-        Rectangle {
-            id: dimension6
-            anchors.left:  dimension5.right
-            anchors.leftMargin: 5
-            anchors.bottom: rectangleBoutons.top
-            anchors.bottomMargin: 10
-            width: 40
-            height: 40
-            color: "#696866"
-            radius: 5
-
-            Text {
-                id: texteDimension6
-                color: "#ffffff"
-                text: qsTr("6x6")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 15
-            }
-
-            MouseArea {
-                id: boutonDimension6
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                visible: boutons
-                onClicked: tableau.setDimension(6)
-            }
+        TextField {
+                id: entrerDimension
+                anchors.left: revenirBouton.right
+                anchors.leftMargin: 5
+                anchors.bottom: rectangleBoutons.top
+                anchors.bottomMargin: 10
+                width: 120
+                height: 40
+                placeholderText: "Entrer dimension"
+                renderType: Text.QtRendering
+                onTextChanged:
+                {
+                    tableau.dimensionQML = text
+                }
+                Keys.onPressed:
+                {
+                    switch(event.key){
+                        case Qt.Key_Up:
+                            tableau.UP();
+                            text = " ";
+                            break;
+                        case Qt.Key_Down:
+                            tableau.Down();
+                            text = " ";
+                            break;
+                        case Qt.Key_Left:
+                            tableau.Left();
+                            text = " ";
+                            break;
+                        case Qt.Key_Right:
+                            tableau.Right();
+                            text = " ";
+                            break;
+                    }
+                    if(tableau.gagneur)
+                    {
+                        boutons = false;
+                        fenetreJeu.visible = false;
+                        fenetreGagneur.visible = true;
+                    } else if(tableau.perdeur)
+                    {
+                        boutons = false;
+                        fenetreJeu.visible = false;
+                        fenetrePerdeur.visible = true;
+                    }
+                }
         }
 
         Rectangle {

@@ -354,6 +354,17 @@ void Grille::setDimension(int dimensionModifie){
         constructeurGrille();
     }
 }
+QString Grille:: text(){
+        return dimensionQML;
+    }
+void Grille::setText(const QString &text){
+        if(text == dimensionQML)
+            return;
+        dimensionQML = text;
+        setDimension(dimensionQML.toInt());
+        //emit dimensionChange(dimensionQML);
+        signalGrille();
+    }
 //Sending data to GUI
 int Grille::positionX(){
     int x,colonne;
@@ -443,7 +454,6 @@ void Grille::redemarrerGrille(){
 void Grille:: effacerHistorique(){
     historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt", ofstream::out | ofstream::trunc);
     historique.close();
-    //signalGrille();
 }
 void Grille::setHistorique(int nouvelleBestScore){
     bestscorehistorique = QString::number(nouvelleBestScore);
