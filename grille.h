@@ -7,7 +7,10 @@
 #include<QStringList>
 #include<vector>
 #include"bouton.h"                               // Créations des boutons de la grille
+#include<iostream>
+#include<fstream>
 
+using namespace std;
 
 
 class Grille : public QObject
@@ -21,6 +24,7 @@ public:
     Q_INVOKABLE void revenir();                             // Revenir un round
     Q_INVOKABLE void setDimension(int dimensionModifie);
     Q_INVOKABLE void setContinuerJeu();
+    Q_INVOKABLE void effacerHistoriqueQML();
 
     // Fonctions pour le mouvement des pieces
     Q_INVOKABLE void UP();
@@ -50,6 +54,9 @@ public:
     int scoreQML();
     Q_PROPERTY(int bestscore READ bestscoreQML NOTIFY signalGrille);
     int bestscoreQML();
+    Q_PROPERTY(QString bestscorehistorique READ bestscorehistoriqueQML NOTIFY signalGrille);
+    QString bestscorehistoriqueQML();
+    Q_INVOKABLE void setHistorique(int nouvelleBestScore);
 
     // Proprietes du bouton
     Q_PROPERTY(QString couleurBouton READ couleurBoutonGUI NOTIFY signalGrille)             // Prendre la couleur du bouton
@@ -64,13 +71,16 @@ signals:
 private:
     int score;                              // Score du jeu
     int bestscore;                          // Best score du jeu
+    QString bestscorehistorique;
     int rounds;                             // Numero de rounds
     int dimension;
+
+    fstream historique;      // archive pour sauvegarder le progres
+
 
     Bouton **tableBouton;                   // Création de la matrice de boutons
     int ***tableauMemoire;
 
-    //bool finJeu;
     bool gagneur;
     bool perdeur;
 
@@ -93,6 +103,7 @@ private:
     void sauvegarder();                     // Faire la gestion de memoire des mouvements
     bool checkGagneur();
     bool checkPerdeur();
+    void effacerHistorique();
 
 
 };

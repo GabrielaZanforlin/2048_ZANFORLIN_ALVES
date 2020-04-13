@@ -13,14 +13,17 @@ Grille::Grille(QObject *parent) :  QObject(parent)
 {
     bestscore = 0;
     dimension = 4;                                       // Dimension défaut du jeu
+    historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt");
+    string historiqueAux;
+    getline(historique,historiqueAux);
+    bestscorehistorique = QString::fromStdString(historiqueAux);
+    historique.close();
     constructeurGrille();
 }
 void Grille::constructeurGrille(){
     score = 0;
     rounds = 1;
     continuerJeu = false;
-    //dimension = 4;                                      // le taille du tableau du jeu
-    //finJeu = false;
     gagneur = false;
     perdeur = false;
     QMLCompteurCouleurBoutonTexte = 0;
@@ -86,6 +89,13 @@ void Grille :: randomBouton(){
                 contientZero = true;
                 if(bestscore<score)
                     bestscore=score;
+                if(bestscore>bestscorehistorique.toInt()){
+                    effacerHistorique();
+                    bestscorehistorique = QString::number(bestscore);
+                    historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt");
+                    historique<<bestscorehistorique.toStdString();
+                    historique.close();
+                }
                 signalGrille();
                 break;
             }
@@ -130,6 +140,7 @@ void Grille::UP(){
     }
     if(mouvementPossible){
         randomBouton();
+        sauvegarder();
     }
     signalGrille();
 }
@@ -227,7 +238,6 @@ void Grille::Right(){
         randomBouton();
         sauvegarder();
     }
-    //sauvegarder();
     signalGrille();
 }
 
@@ -267,6 +277,15 @@ void Grille::sauvegarder(){
         bestscore=sommeScoreRound;
     }
 
+    // Check best Score historique
+    if(bestscore>bestscorehistorique.toInt()){
+        effacerHistorique();
+        bestscorehistorique = QString::number(bestscore);
+        historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt");
+        historique<<bestscorehistorique.toStdString();
+        historique.close();
+    }
+
     // Supprimer le tableu de memoire d'avant
     for(int i=0;i<rounds;i++){
         for(int j=0;j<dimension;j++){
@@ -277,15 +296,6 @@ void Grille::sauvegarder(){
     delete [] tableauMemoire;
     tableauMemoire=memoireAux;
     rounds++;
-    // Delete memoireAux
-    /*for(int i=0;i<rounds;i++){
-        for(int j=0;j<dimension;j++){
-            delete (memoireAux[i])[j];
-        }
-        delete memoireAux[i];
-    }
-    delete [] memoireAux;
-    memoireAux = NULL;*/
 }
 
 bool Grille::checkGagneur(){
@@ -333,6 +343,9 @@ int Grille :: scoreQML(){
 
 int Grille :: bestscoreQML(){
     return bestscore;
+}
+QString Grille::bestscorehistoriqueQML(){
+    return bestscorehistorique;
 }
 void Grille::setDimension(int dimensionModifie){
     if(dimensionModifie>2){
@@ -392,7 +405,7 @@ QString Grille::boutonTexteGUI()
 
 // Revenir
 void Grille::revenir(){
-    if(rounds>2){
+    if(rounds>1){
         rounds--;
         int aux;
         int sommeScore=0;
@@ -409,6 +422,13 @@ void Grille::revenir(){
         if(sommeScore>bestscore){
             bestscore=sommeScore;
         }
+        if(bestscore>bestscorehistorique.toInt()){
+            effacerHistorique();
+            bestscorehistorique = QString::number(bestscore);
+            historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt");
+            historique<<bestscorehistorique.toStdString();
+            historique.close();
+        }
         signalGrille();
     }
 }
@@ -417,6 +437,20 @@ void Grille::revenir(){
 void Grille::redemarrerGrille(){
     destructeurGrille();
     constructeurGrille();
+}
+
+// Effacer historique
+void Grille:: effacerHistorique(){
+    historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt", ofstream::out | ofstream::trunc);
+    historique.close();
+    //signalGrille();
+}
+void Grille::setHistorique(int nouvelleBestScore){
+    bestscorehistorique = QString::number(nouvelleBestScore);
+    signalGrille();
+}
+void Grille::effacerHistoriqueQML(){
+    effacerHistorique();
 }
 
 // Destructeur

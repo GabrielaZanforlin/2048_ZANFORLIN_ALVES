@@ -25,8 +25,77 @@ Window {
         property alias rectangleBoutons: rectangleBoutons
 
         Rectangle {
-            id: titre
+            id: scoreJeu
             anchors.left: parent.left
+            anchors.leftMargin: (largeurFenetre - 320)/2
+            anchors.top: parent.top
+            anchors.topMargin: 7
+            width: 80
+            height: 40
+            color: "#DB7093"
+            radius: 5
+
+            Text {
+                id: scoreJeuText
+                text: qsTr("SCORE")
+                color: "#FEFDFD"
+                anchors.top: parent.top
+                anchors.topMargin: 5
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+                font.pixelSize: 10
+            }
+
+            Text {
+                id: scoreValeur
+                text: qsTr(tableau.score.toString())
+                font.bold: true
+                color: "#FEFDFD"
+                anchors.top: parent.top
+                anchors.topMargin: 18
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+                font.pixelSize: 14
+            }
+        }
+        Rectangle {
+            id: bestScoreJeu
+            anchors.left: parent.left
+            anchors.leftMargin: (largeurFenetre - 320)/2
+            anchors.top: scoreJeu.bottom
+            anchors.topMargin: 5
+            width: 80
+            height: 40
+            color: "#DB7093"
+            radius: 5
+
+            Text {
+                id: bestScoreJeuTexte
+                text: qsTr("BEST SCORE")
+                color: "#FEFDFD"
+                anchors.top: parent.top
+                anchors.topMargin: 5
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+                font.pixelSize: 10
+            }
+
+            Text {
+                id: bestScoreJeuValeur
+                text: qsTr(tableau.bestscore.toString())
+                font.bold: true
+                color: "#FEFDFD"
+                anchors.top: parent.top
+                anchors.topMargin: 18
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+                font.pixelSize: 14
+            }
+        }
+
+        Rectangle {
+            id: titre
+            anchors.left: scoreJeu.right
             anchors.leftMargin: 20
             anchors.top: parent.top
             anchors.topMargin: 20
@@ -49,19 +118,19 @@ Window {
         }
 
         Rectangle {
-            id: scoreJeu
+            id: historiqueJeu
             anchors.left: titre.right
             anchors.leftMargin: 20
             anchors.top: parent.top
-            anchors.topMargin: 20
+            anchors.topMargin: 7
             width: 80
             height: 40
-            color: "#959494"
+            color: "#DB7093"
             radius: 5
 
             Text {
-                id: scoreJeuText
-                text: qsTr("SCORE")
+                id: historiqueJeuText
+                text: qsTr("HISTORIQUE")
                 color: "#FEFDFD"
                 anchors.top: parent.top
                 anchors.topMargin: 5
@@ -71,10 +140,10 @@ Window {
             }
 
             Text {
-                id: scoreValeur
-                text: qsTr(tableau.score.toString())
+                id: historiqueJeuValeur
+                text: qsTr(tableau.bestscorehistorique.toString())
                 font.bold: true
-                color:  "#FEFDFD"
+                color: "#FEFDFD"
                 anchors.top: parent.top
                 anchors.topMargin: 18
                 horizontalAlignment: Text.AlignHCenter
@@ -82,38 +151,39 @@ Window {
                 font.pixelSize: 14
             }
         }
+
         Rectangle {
-            id: bestScoreJeu
-            anchors.left: scoreJeu.right
+            id: effacerHistorique
+            anchors.left: titre.right
             anchors.leftMargin: 20
-            anchors.top: parent.top
-            anchors.topMargin: 20
+            anchors.top: historiqueJeu.bottom
+            anchors.topMargin: 5 //20
             width: 80
             height: 40
-            color: "#959494"
+            color: "#DB7093"//"#959494"
             radius: 5
 
             Text {
-                id: bestScoreJeuTexte
-                text: qsTr("BEST SCORE")
+                id: effacerHistoriqueTexte
+                text: qsTr("Effacer")
                 color: "#FEFDFD"
-                anchors.top: parent.top
-                anchors.topMargin: 5
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pixelSize: 10
-            }
-
-            Text {
-                id: bestScoreJeuValeur
-                text: qsTr(tableau.bestscore.toString())
                 font.bold: true
-                color:  "#FEFDFD"
                 anchors.top: parent.top
-                anchors.topMargin: 18
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 anchors.fill: parent
                 font.pixelSize: 14
+            }
+            MouseArea {
+                id: effacer
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                visible: boutons
+                onClicked:
+                {
+                    tableau.effacerHistoriqueQML()
+                    tableau.setHistorique(tableau.bestscore)
+                }
             }
         }
         Rectangle {
@@ -125,7 +195,6 @@ Window {
             anchors.bottomMargin: 10
             anchors.left: rectangleBoutons.left
             anchors.leftMargin: (largeurFenetre - 385)/2
-            //anchors.leftMargin: 5
             color:"#696866"
             radius: 5
 
@@ -133,7 +202,6 @@ Window {
                 id: redemarrerTexte
                 color: "#ffffff"
                 text: qsTr("Rédemarrer")
-                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -167,7 +235,6 @@ Window {
                 id: revenirTexte
                 color: "#ffffff"
                 text: qsTr("Revenir")
-                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -199,7 +266,6 @@ Window {
                 id: texteDimensio4
                 color: "#ffffff"
                 text: qsTr("4x4")
-                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -231,7 +297,6 @@ Window {
                 id: texteDimensio5
                 color: "#ffffff"
                 text: qsTr("5x5")
-                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -262,7 +327,6 @@ Window {
                 id: texteDimension6
                 color: "#ffffff"
                 text: qsTr("6x6")
-                font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -299,7 +363,6 @@ Window {
                     width: 75
                     height: 75
                     color: tableau.couleurBouton
-                    //Behavior on color { PropertyAnimation { duration: 100}}
                     radius: 5
                     z: 1
                     focus: true
@@ -406,7 +469,6 @@ Window {
             anchors.leftMargin: (largeurFenetre - 250)/2
             anchors.top: parent.top
             anchors.topMargin: 300
-            //anchors.horizontalCenter: gagneur.horizontalCenter
             anchors.bottom: texteGagneur.AlignBottom
             anchors.bottomMargin: 10
             width: 120
