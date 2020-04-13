@@ -11,6 +11,7 @@ using namespace std;
 // Constructeur
 Grille::Grille(QObject *parent) :  QObject(parent)
 {
+    bestscore = 0;
     dimension = 4;                                       // Dimension défaut du jeu
     constructeurGrille();
 }
@@ -43,6 +44,9 @@ void Grille::initialisationGrille(){
         }
     }
     randomBouton();
+    initialiserGestionMomoire();
+}
+void Grille:: initialiserGestionMomoire(){
     // Pour sauvegarder le début du jeu
     tableauMemoire = new int**[1];
     tableauMemoire[0] = new int*[dimension];
@@ -56,7 +60,6 @@ void Grille::initialisationGrille(){
         }
     }
 }
-
 void Grille :: randomBouton(){
     srand(time(NULL)*time(NULL));
     double val = ((double) rand() / (RAND_MAX));
@@ -127,8 +130,6 @@ void Grille::UP(){
     }
     if(mouvementPossible){
         randomBouton();
-        sauvegarder();
-        rounds++;
     }
     signalGrille();
 }
@@ -161,7 +162,6 @@ void Grille :: Down(){
     if(mouvementPossible){
         randomBouton();
         sauvegarder();
-        rounds++;
     }
     signalGrille();
 }
@@ -194,7 +194,6 @@ void Grille:: Left(){
     if(mouvementPossible){
         randomBouton();
         sauvegarder();
-        rounds++;
     }
     signalGrille();
 }
@@ -227,8 +226,8 @@ void Grille::Right(){
     if(mouvementPossible){
         randomBouton();
         sauvegarder();
-        rounds++;
     }
+    //sauvegarder();
     signalGrille();
 }
 
@@ -244,26 +243,30 @@ void Grille::sauvegarder(){
             (memoireAux[i])[j]= new int[dimension];
         }
     }
+
     // Sauvegarder les valeurs d'avant
     for(int i=0;i<rounds;i++){
         for(int j=0; j<dimension; j++){
             for(int k=0;k<dimension;k++){
-                ((memoireAux[i])[j])[k] = (tableauMemoire[i])[j][k];
+                memoireAux[i][j][k] = tableauMemoire[i][j][k];
             }
         }
     }
+
     // Sauvegarder le round
     int sommeScoreRound=0;
     for(int i=0;i<dimension;i++){
         for(int j=0;j<dimension;j++){
-            (memoireAux[rounds])[i][j] = tableBouton[i*dimension+j]->getValeur();
+            memoireAux[rounds][i][j] = tableBouton[i*dimension+j]->getValeur();
             sommeScoreRound+=tableBouton[i*dimension+j]->getValeur();
         }
     }
+
     // Check best Score
     if(sommeScoreRound>bestscore){
         bestscore=sommeScoreRound;
     }
+
     // Supprimer le tableu de memoire d'avant
     for(int i=0;i<rounds;i++){
         for(int j=0;j<dimension;j++){
@@ -273,15 +276,16 @@ void Grille::sauvegarder(){
     }
     delete [] tableauMemoire;
     tableauMemoire=memoireAux;
+    rounds++;
     // Delete memoireAux
-    for(int i=0;i<rounds;i++){
+    /*for(int i=0;i<rounds;i++){
         for(int j=0;j<dimension;j++){
             delete (memoireAux[i])[j];
         }
         delete memoireAux[i];
     }
     delete [] memoireAux;
-    memoireAux = NULL;
+    memoireAux = NULL;*/
 }
 
 bool Grille::checkGagneur(){
@@ -388,12 +392,16 @@ QString Grille::boutonTexteGUI()
 
 // Revenir
 void Grille::revenir(){
-    if(rounds>1){
+    if(rounds>2){
         rounds--;
+        int aux;
         int sommeScore=0;
+        int** revenirGrille;
+        revenirGrille = tableauMemoire[rounds-1];
         for(int i=0;i<dimension;i++){
             for(int j=0; j<dimension;j++){
-                tableBouton[i*dimension+j]->setValeur(tableauMemoire[rounds-1][i][j]);
+                aux = revenirGrille[i][j];
+                tableBouton[i*dimension+j]->setValeur(aux);
                 sommeScore +=tableBouton[i*dimension+j]->getValeur();
             }
         }

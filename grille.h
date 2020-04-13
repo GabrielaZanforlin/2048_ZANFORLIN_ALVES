@@ -89,6 +89,7 @@ private:
     void destructeurGrille();
     void randomBouton();
     void reinitialiserFusion();
+    void initialiserGestionMomoire();
     void sauvegarder();                     // Faire la gestion de memoire des mouvements
     bool checkGagneur();
     bool checkPerdeur();
