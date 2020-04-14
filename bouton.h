@@ -24,7 +24,7 @@ public:
     void setColonne(int colonne2);
     void setValeur(int valeur2);
     void setFusion(bool fusion2);
-    void setCouleursBT();               // on initialise les couleurs utilises dans les boutons et dans les texts
+    void setCouleursBT();               // On initialise les couleurs utilises dans les boutons et dans les texts
     void setCouleur();                  // dans ce methode, on change les deux couleurs
 private:
     int ligne;

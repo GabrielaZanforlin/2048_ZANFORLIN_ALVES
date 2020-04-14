@@ -6,9 +6,10 @@
 #include<stdlib.h>                               // Prendre la fonction random
 #include<QStringList>
 #include<vector>
-#include"bouton.h"                               // Créations des boutons de la grille
 #include<iostream>
 #include<fstream>
+#include"bouton.h"                               // Créations des boutons de la grille
+
 
 using namespace std;
 
@@ -65,13 +66,12 @@ public:
     QString couleurBoutonTexteGUI();
     Q_PROPERTY(QString boutonTexte READ boutonTexteGUI NOTIFY signalGrille)                 // Prendre le text du bouton
     QString boutonTexteGUI();
-    Q_PROPERTY(QString dimensionQML READ text WRITE setText NOTIFY signalGrille);
+    Q_PROPERTY(QString dimensionQML READ text WRITE setText NOTIFY signalGrille);           // Definir dimension du tableau (4-10)
     QString text();
     void setText(const QString &text);
 
 signals:                
     void signalGrille();                    // Le signal résponsable pour changer le qml
-    //void dimensionChange(const QString &dimensionQML);
 private:
     int score;                              // Score du jeu
     int bestscore;                          // Best score du jeu
@@ -79,7 +79,7 @@ private:
     int rounds;                             // Numero de rounds
     int dimension;
 
-    fstream historique;      // archive pour sauvegarder le progres
+    fstream historique;                     // archive pour sauvegarder le progres
 
     Bouton **tableBouton;                   // Création de la matrice de boutons
     int ***tableauMemoire;

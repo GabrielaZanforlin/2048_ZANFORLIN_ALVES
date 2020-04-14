@@ -12,7 +12,7 @@ using namespace std;
 Grille::Grille(QObject *parent) :  QObject(parent)
 {
     bestscore = 0;
-    dimension = 4;                                       // Dimension défaut du jeu
+    dimension = 4;                                                              // Dimension défaut du jeu
     historique.open("..//2048_ZANFORLIN_ALVES//historiqueJeu.txt");
     string historiqueAux;
     getline(historique,historiqueAux);
@@ -348,23 +348,22 @@ QString Grille::bestscorehistoriqueQML(){
     return bestscorehistorique;
 }
 void Grille::setDimension(int dimensionModifie){
-    if(dimensionModifie>2){
-        destructeurGrille();
-        dimension=dimensionModifie;
-        constructeurGrille();
-    }
+    destructeurGrille();
+    dimension=dimensionModifie;
+    constructeurGrille();
 }
 QString Grille:: text(){
         return dimensionQML;
     }
 void Grille::setText(const QString &text){
-        if(text == dimensionQML)
-            return;
-        dimensionQML = text;
-        setDimension(dimensionQML.toInt());
-        //emit dimensionChange(dimensionQML);
-        signalGrille();
-    }
+    if(text == dimensionQML || text.toInt()<4 || text.toInt()>10)
+        return;
+    dimensionQML = text;
+    setDimension(dimensionQML.toInt());
+    signalGrille();
+
+}
+
 //Sending data to GUI
 int Grille::positionX(){
     int x,colonne;
