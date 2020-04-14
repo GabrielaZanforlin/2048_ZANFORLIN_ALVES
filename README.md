@@ -43,7 +43,7 @@ La possibilité de revenir les rounds précedants est grâces à l'utilisation d
 
 ![dimensionss](https://user-images.githubusercontent.com/62310420/79225526-38d2ea80-7e33-11ea-9d38-23b351b6faac.PNG)
 
-Le joueur peut choisir la dimension du jeu, il faut seulement écrire dans le case << Entre dimension>> **une valeur entre 4 et 10**, car on a mis dans notre code une restriction que permet le changement de dimension seulement si la valeur écrit est dans cet l'intervalle cite.
+Le joueur peut choisir la dimension du jeu, il faut seulement écrire dans le case << Entre dimension>> **une valeur entre 4 et 10**, car on a mis dans notre code une restriction que permet le changement de dimension seulement si la valeur écrit est dans cet l'intervalle.
 
 ## Fenêtres << Gagneur>> et << Perdeur>>
 
@@ -76,4 +76,4 @@ Les futures funcionnalités qui peuvent être ajouter au projet :
 * Ajouter un menu permettant de jeur en mode _multiplayer_
 
 # Observation : Rédemarrer en place de Redémarrer
-Désolée, mais seulement après avoir fini le projet on a vu que on a écrit << R**é**demarrer>> en place d'écrire << Red**é**demarrer>>. Le code enregistre est corrigé, mais les photos utilisées dans cette explication ont encore l'erreur, car on les a pris avant de faire la correction.
+Erreur d'écriture sur images: << R**é**demarrer>> en place de << Red**é**demarrer>>. Le code enregistré est corrigé, mais les photos utilisées dans cette explication ont encore l'erreur, car on les a pris avant de faire la correction.
