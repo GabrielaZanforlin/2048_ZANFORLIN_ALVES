@@ -7,7 +7,8 @@ Pour lancer le jeu, il faut suivre les étapes écrites ci-dessous :
 - Téléchargez les fichiers de cette page dans le dossier que vous souhaitez (copiez le lien de cette page -> choisir le dossier souhaité -> toucher sur lui avec le bouton gauche de la souris -> choisir << Git Bash Here >> -> écrire << git clone ...>> plus le lien copié)
 - Sur le logiciel QT Creator, cliquez sur << Ouvrir projet>>
 - Seletionnez le fichier .pro
-- Sur le projet ouvert, toucher << Crtl + R>>- La fenêtre du jeu est affichée --> Jouez :)
+- Sur le projet ouvert, toucher << Crtl + R>>
+- La fenêtre du jeu est affichée --> Jouez :)
 
 # Description
 Le jeu peut démarrer avec l'apparition au hasard d'une tesselle de valeur 2 (85% de probabilité) ou 4 (15% de probabilité). L'objective est de combiner les tesselles qui ont la même valeur, pour les combiner il faut déplacer les tesselles déjà affichées en utilisant les 4 flèches du clavier. Après chaque mouvement, une nouvelle tesselle apparaît au hasard sur une des cases sans valeur du tableau. La partie s'arrête lorsque le tableau est plein et n'y a pas de mouvementes possibles pour libérer une case ou lorsque une tesselle est numéroté en <<2048>>. Le jeu consiste en combine les plus de cases possibles avant le remplissage totale du tableau.
