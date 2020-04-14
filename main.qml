@@ -202,7 +202,7 @@ Window {
             Text {
                 id: redemarrerTexte
                 color: "#ffffff"
-                text: qsTr("Rédemarrer")
+                text: qsTr("Redémarrer")
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -436,7 +436,7 @@ Window {
             Text {
                 id: redemarrerGagneurTexte
                 color: "#76E181"
-                text: qsTr("Rédemarrer")
+                text: qsTr("Redémarrer")
                 font.bold: true
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -543,7 +543,7 @@ Window {
                 Text {
                     id: redemarrerPerduTexte
                     color: "#FC5B5B"
-                    text: qsTr("Rédemarrer")
+                    text: qsTr("Redémarrer")
                     font.bold: true
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
