@@ -76,4 +76,4 @@ Les futures funcionnalités qui peuvent être ajouter au projet :
 * Ajouter un menu permettant de jeur en mode _multiplayer_
 
 # Observation : Rédemarrer en place de Redémarrer
-Erreur d'écriture sur images: << R**é**demarrer>> en place de << Red**é**demarrer>>. Le code enregistré est corrigé, mais les photos utilisées dans cette explication ont encore l'erreur, car on les a pris avant de faire la correction.
+Erreur d'écriture sur images: << R**é**demarrer>> en place de << Red**é**marrer>>. Le code enregistré est corrigé, mais les photos utilisées dans cette explication ont encore l'erreur, car on les a pris avant de faire la correction.
